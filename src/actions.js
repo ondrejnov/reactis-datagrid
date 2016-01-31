@@ -112,13 +112,13 @@ export function collapseRows(id, ids) {
 	};
 }
 
-export function saveInline(id, apiMethod, field, args) {
+export function saveInline(id, apiMethod, field, args, cellValue) {
 	return {
 		types: [SAVE_INLINE, SAVE_INLINE_SUCCESS, SAVE_INLINE_FAIL],
 		id,
 		field: field,
 		primaryKey: args.id,
-		value: args.value,
+		value: cellValue ? cellValue : args.value,
 		promise: (client) => client.call(apiMethod, args)
 	};
 }

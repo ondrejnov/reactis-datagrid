@@ -44,9 +44,9 @@ export default class Cell extends React.Component {
 			style.textAlign = this.props.column.align;
 		}
 
-		let className;
+		let className = this.props.column.className;
 		if (this.props.column.viewport) {
-			className = 'vp-' + this.props.column.viewport;
+			className += ' vp-' + this.props.column.viewport;
 		}
 		return <td style={style} className={className}>{value}</td>
 	}

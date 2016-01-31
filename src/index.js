@@ -5,5 +5,5 @@ export FilterField from './FilterField';
 export FilterResetButton from './FilterResetButton';
 
 module.exports.actions = {
-	setFilter: require('./reducer').setFilter
+	setFilter: require('./actions').setFilter
 };

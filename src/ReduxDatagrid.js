@@ -114,8 +114,8 @@ export default class ReduxDatagrid extends React.Component {
 		this.load();
 	}
 
-	saveInline(apiMethod, field, args) {
-		this.props.actions.saveInline(this.props.id, apiMethod, field, args);
+	saveInline(apiMethod, field, args, cellValue) {
+		this.props.actions.saveInline(this.props.id, apiMethod, field, args, cellValue);
 	}
 
 	load(state = this.props.state, fixedFilter = this.props.fixedFilter) {
