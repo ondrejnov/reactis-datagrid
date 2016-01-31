@@ -3,7 +3,8 @@ import {INIT_DEFAULT, DESTROY,
 	LOAD, LOAD_SUCCESS,
 	SET_PAGE, SET_SORT, SET_FILTER, SET_FILTER_LIVE,
 	ADD_SELECTED_ROWS, REMOVE_SELECTED_ROWS,
-	EXPAND_ROWS, COLLAPSE_ROWS
+	EXPAND_ROWS, COLLAPSE_ROWS,
+	SAVE_INLINE, SAVE_INLINE_SUCCESS, SAVE_INLINE_FAIL
 } from './actions';
 
 const initialState = immutable.Map();
@@ -26,6 +27,33 @@ export default function reducer(state = initialState, action = {}) {
 		  			.setIn([action.id, 'count'], action.result.count)
 			  		.setIn([action.id, 'items'], immutable.fromJS(action.result.items))
 			  		.setIn([action.id, 'summary'], immutable.fromJS(action.result.summary));
+
+	  case SAVE_INLINE:
+		  var inline = state.getIn([action.id, 'inline', action.field, action.primaryKey]);
+		  if (!inline) {
+			  inline = immutable.Map();
+		  }
+		  var row = state.getIn([action.id, 'items']).filter((item) => item.get('id') == action.primaryKey);
+		  if (row.count()) {
+			  let index = state.getIn([action.id, 'items']).indexOf(row.get(0));
+			  state = state.setIn([action.id, 'items', index, action.field], immutable.fromJS(action.value));
+		  }
+		  let oldValue = row && row.get(0) ? row.getIn([0, action.field]) : null;
+		  inline = inline.set('pending', true).set('oldValue', oldValue);
+		  return state
+			  		.setIn([action.id, 'inline', action.field, action.primaryKey], inline);
+
+	  case SAVE_INLINE_SUCCESS:
+		  return state.deleteIn([action.id, 'inline', action.field, action.primaryKey]);
+
+	  case SAVE_INLINE_FAIL:
+		  var inline = state.getIn([action.id, 'inline', action.field, action.primaryKey]);
+		  var row = state.getIn([action.id, 'items']).filter((item) => item.get('id') == action.primaryKey);
+		  if (row.count()) {
+			  let index = state.getIn([action.id, 'items']).indexOf(row.get(0));
+			  state = state.setIn([action.id, 'items', index, action.field], immutable.fromJS(inline.get('oldValue')));
+		  }
+		  return state.deleteIn([action.id, 'inline', action.field, action.primaryKey]);
 
 	  case SET_PAGE:
 		  return state.setIn([action.id, 'page'], action.page);

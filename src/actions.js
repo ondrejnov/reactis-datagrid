@@ -16,6 +16,10 @@ export const REMOVE_SELECTED_ROWS = 'datagrid/RemoveSelectedRows';
 export const EXPAND_ROWS = 'datagrid/ExpandRows';
 export const COLLAPSE_ROWS = 'datagrid/CollapseRows';
 
+export const SAVE_INLINE = 'datagrid/SAVE_INLINE';
+export const SAVE_INLINE_SUCCESS = 'datagrid/SAVE_INLINE_SUCCESS';
+export const SAVE_INLINE_FAIL = 'datagrid/SAVE_INLINE_FAIL';
+
 export function initDefault(id, state) {
 	return {
 		type: INIT_DEFAULT,
@@ -105,5 +109,16 @@ export function collapseRows(id, ids) {
 		type: COLLAPSE_ROWS,
 		id,
 		ids
+	};
+}
+
+export function saveInline(id, apiMethod, field, args) {
+	return {
+		types: [SAVE_INLINE, SAVE_INLINE_SUCCESS, SAVE_INLINE_FAIL],
+		id,
+		field: field,
+		primaryKey: args.id,
+		value: args.value,
+		promise: (client) => client.call(apiMethod, args)
 	};
 }
