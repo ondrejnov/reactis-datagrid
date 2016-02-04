@@ -146,8 +146,8 @@ class Datagrid extends React.Component {
 		const expandable = !!this.props.expandableComponent;
 
 		let multiAction = this.props.multiActions && this.props.multiActions.length > 0;
-		let paginatorLength = 5;
-		let paginatorSurround = 3;
+		let paginatorLength = 3;
+		let paginatorSurround = 2;
 
 		if (this.props.compact) {
 			paginatorLength = 3;

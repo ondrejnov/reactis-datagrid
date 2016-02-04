@@ -55,11 +55,25 @@ export default class Paginator extends React.Component {
 			prevStep = j;
 		}
 
-		var prev = '';//<li className={cn} onClick={this.handlePage.bind(this, info.previous_page)}><a href="#"><i className="icon-double-angle-left"></i> </a></li>;
-		var next = ''; //<li className={cn} onClick={this.handlePage.bind(this, info.next_page)}><a href="#"> <i className="icon-double-angle-right"></i></a></li>;
+		let prev = false;
+		if (this.props.page != 1) {
+			prev = <li  onClick={this.handlePage.bind(this, this.props.page-1)}><a href="#"><i className="fa fa-angle-left"></i></a></li>;
+		}
+		let next = false;
+		if (this.props.page != Math.ceil(this.props.count / this.props.limit)) {
+			next = <li onClick={this.handlePage.bind(this, this.props.page+1)}><a href="#"><i className="fa fa-angle-right"></i></a></li>;
+		}
 
-		return <ul className="pagination">
-				{prev} {items} {next}
-			   </ul>;
+		const info = (this.props.limit * (this.props.page - 1) + 1) + ' — ' + (this.props.limit * this.props.page < this.props.count ? this.props.limit * this.props.page : this.props.count) + ' z ' + this.props.count;
+		return (
+				<ul style={{float:'right'}} className="pagination pagination-separated">
+						{prev} {items} {next}
+					{items.length > 0 &&
+						<li className="info hidden-xs"><span style={{border: 0, color: '#555', marginLeft:20}}>
+							<i className="fa fa-location-arrow position-left"></i>{info}</span>
+						</li>
+					}
+				</ul>
+		);
 	}
 }
