@@ -241,10 +241,12 @@ class Datagrid extends React.Component {
 						<tbody>
 							{rows}
 						</tbody>
-						<Summary columnModel={this.props.columnModel}
-								 data={this.props.summary}
-								 expandable={expandable}
-								 multiAction={!!multiAction}/>
+						{this.props.rows.count() > 0 &&
+							<Summary columnModel={this.props.columnModel}
+									 data={this.props.summary}
+									 expandable={expandable}
+									 multiAction={!!multiAction}/>
+						}
 					</table>
 				</div>
 				{multiAction &&
