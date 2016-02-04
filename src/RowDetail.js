@@ -47,20 +47,22 @@ export default class RowDetail extends React.Component {
 	}
 
 	render() {
-		//		value: this.props.data.get(column.field)
 		let cn = this.props.className;
 		if (this.props.selected) {
 			cn += ' selected';
 		}
-		if (!this.props.visible) {
+		let component = false;
+		if (this.props.visible) {
+			const factory = new React.createFactory(this.props.expandableComponent);
+			component = new factory({data: this.props.data});
+		}
+		else {
 			cn += ' hide';
 		}
 		let checkCell = false;
 		if (this.props.multiAction) {
 			checkCell = <td className="ch"></td>;
 		}
-		const factory = new React.createFactory(this.props.expandableComponent);
-		const component = new factory({data: this.props.data});
 		return (
 			<tr className={cn}><td>&nbsp;</td><td colSpan={this.props.columnModel.length+1}>{component}</td></tr>
 		)
