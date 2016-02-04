@@ -22,8 +22,12 @@ export default function reducer(state = initialState, action = {}) {
 			  		.setIn([action.id, 'pending'], true);
 
 	  case LOAD_SUCCESS:
+		  state = state.setIn([action.id, 'pending'], false);
+		  if (action.result.hash && state.getIn([action.id, 'hash']) == action.result.hash) {
+			  return state;
+		  }
 		  return state
-			  		.setIn([action.id, 'pending'], false)
+			  		.setIn([action.id, 'hash'], action.result.hash)
 		  			.setIn([action.id, 'count'], action.result.count)
 			  		.setIn([action.id, 'items'], immutable.fromJS(action.result.items))
 			  		.setIn([action.id, 'summary'], immutable.fromJS(action.result.summary));

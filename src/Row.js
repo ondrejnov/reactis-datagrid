@@ -60,7 +60,6 @@ export default class Row extends React.Component {
 	}
 
 	render() {
-
 		const cells = this.props.columnModel.map((column) => {
 			let factory = column.factory;
 			if (!factory) {
