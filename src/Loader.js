@@ -23,10 +23,12 @@ export default class Loader extends Component {
 			}, 300);
 		}
 		else {
-			if (this.timeout) {
-				clearTimeout(this.timeout);
+			if (nextProps.visible == false) {
+				if (this.timeout) {
+					clearTimeout(this.timeout);
+				}
+				this.state.visible = nextProps.visible;
 			}
-			this.state.visible = nextProps.visible;
 		}
 	}
 
