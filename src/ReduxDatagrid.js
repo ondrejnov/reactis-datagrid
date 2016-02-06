@@ -124,6 +124,20 @@ export default class ReduxDatagrid extends React.Component {
 		this.props.actions.load(this.props.id, this.props.api, s, this.props.limit, this.props.saveState);
 	}
 
+	handleSelect(ids) {
+		this.props.actions.addSelectedRows(this.props.id, ids)
+		if (this.props.onSelect) {
+			this.props.onSelect(ids);
+		}
+	}
+
+	handleSelectMove(offset) {
+		const action = this.props.actions.selectedMove(this.props.id, offset)
+		if (this.props.onSelect) {
+			this.props.onSelect([action.result]);
+		}
+	}
+
 	render() {
 		if (!this.props.state) {
 			return null;
@@ -144,14 +158,17 @@ export default class ReduxDatagrid extends React.Component {
 				limit={this.props.limit}
 				className={this.props.className}
 				compact={this.props.compact}
+				masterdetail={this.props.masterdetail}
 				expanded={this.props.state.get('expanded')}
 				expandableComponent={this.props.expandableComponent}
 				onPage={(page) => this.props.actions.setPage(this.props.id, page)}
 				onSort={(sort) => this.props.actions.setSort(this.props.id, sort)}
-				onSelect={(ids) => this.props.actions.addSelectedRows(this.props.id, ids)}
+				onSelect={(ids) => this.handleSelect(ids)}
 				onUnSelect={(ids) => this.props.actions.removeSelectedRows(this.props.id, ids)}
 				onExpand={(ids) => this.props.actions.expandRows(this.props.id, ids)}
 				onCollapse={(ids) => this.props.actions.collapseRows(this.props.id, ids)}
+				onSelectNext={() => this.handleSelectMove(1)}
+				onSelectPrev={() => this.handleSelectMove(-1)}
 			/>
 		)
 	}

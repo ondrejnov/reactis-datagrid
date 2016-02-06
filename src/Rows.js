@@ -37,6 +37,7 @@ export default class Rows extends React.Component {
 					multiAction={this.props.multiAction}
 					expandable={expandable}
 					expanded={expanded}
+					masterdetail={this.props.masterdetail}
 					onExpand={(row, checked) => this.props.handleExpand(row, checked)}
 					onSelect={(row, checked) => this.props.handleSelect(row, checked)}
 				/>);

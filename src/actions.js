@@ -12,6 +12,7 @@ export const SET_FILTER_LIVE = 'datagrid/setFilterLive';
 
 export const ADD_SELECTED_ROWS = 'datagrid/AddSelectedRows';
 export const REMOVE_SELECTED_ROWS = 'datagrid/RemoveSelectedRows';
+export const SELECTED_MOVE = 'datagrid/SelectedMove';
 
 export const EXPAND_ROWS = 'datagrid/ExpandRows';
 export const COLLAPSE_ROWS = 'datagrid/CollapseRows';
@@ -85,6 +86,14 @@ export function addSelectedRows(id, ids) {
 		type: ADD_SELECTED_ROWS,
 		id,
 		ids
+	};
+}
+
+export function selectedMove(id, offset) {
+	return {
+		type: SELECTED_MOVE,
+		id,
+		offset
 	};
 }
 

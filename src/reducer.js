@@ -2,7 +2,7 @@ import immutable from 'immutable';
 import {INIT_DEFAULT, DESTROY,
 	LOAD, LOAD_SUCCESS,
 	SET_PAGE, SET_SORT, SET_FILTER, SET_FILTER_LIVE,
-	ADD_SELECTED_ROWS, REMOVE_SELECTED_ROWS,
+	ADD_SELECTED_ROWS, REMOVE_SELECTED_ROWS, SELECTED_MOVE,
 	EXPAND_ROWS, COLLAPSE_ROWS,
 	SAVE_INLINE, SAVE_INLINE_SUCCESS, SAVE_INLINE_FAIL
 } from './actions';
@@ -86,6 +86,22 @@ export default function reducer(state = initialState, action = {}) {
 			  }
 		  });
 		  return state.setIn([action.id, 'selected'], selected);
+
+	  case SELECTED_MOVE:
+		  var selected = state.getIn([action.id, 'selected', state.getIn([action.id, 'selected']).count()-1]);
+		  if (!selected) {
+			 return state;
+		  }
+		  var row = state.getIn([action.id, 'items']).filter((item) => item.get('id') == selected);
+		  var i = state.getIn([action.id, 'items']).indexOf(row.get(0));
+
+		  if (i + action.offset == -1 || i + action.offset == state.getIn([action.id, 'items']).count()) {
+			  return state;
+		  }
+
+		  var selected = state.getIn([action.id, 'items', i + action.offset]);
+		  action.result = selected.get('id');
+		  return state.setIn([action.id, 'selected'], immutable.List([selected.get('id')]));
 
 	  case REMOVE_SELECTED_ROWS:
 		  var selected = state.getIn([action.id, 'selected']);

@@ -24,7 +24,9 @@ class Datagrid extends React.Component {
 		sort: React.PropTypes.object,
 		// Filter
 		filter: React.PropTypes.object,
-		// Selected rows
+		// Filter
+		masterdetail: React.PropTypes.bool.isRequired,
+		// Selected rows for multi action
 		selected: React.PropTypes.instanceOf(immutable.List),
 		// Expanded rows
 		expanded: React.PropTypes.instanceOf(immutable.List),
@@ -65,6 +67,7 @@ class Datagrid extends React.Component {
 		limit: 25,
 		compact: false,
 		pending: false,
+		masterdetail: false,
 		multiActions: [],
 		selected: immutable.List(),
 		expanded: immutable.List(),
@@ -83,6 +86,10 @@ class Datagrid extends React.Component {
 	}
 
 	handleSelect(row, checked) {
+		if (this.props.masterdetail) {
+			this.handleSelectAll(false);
+		}
+
 		const id = row.get(this.props.primaryKey);
 		if (checked) {
 			if (this.props.onSelect) {
@@ -141,6 +148,28 @@ class Datagrid extends React.Component {
 		}
 	}
 
+	handleKeyDown(e) {
+		if (this.props.masterdetail) {
+			if (e.keyCode == 38 || e.keyCode == 40) {
+				e.preventDefault();
+			}
+			if (e.keyCode == 40 && this.props.onSelectNext) {
+				this.props.onSelectNext();
+			}
+			if (e.keyCode == 38 && this.props.onSelectPrev) {
+				this.props.onSelectPrev();
+			}
+			const maxPage = Math.ceil(this.props.totalCount / this.props.limit);
+			if (e.keyCode == 39 && this.props.page < maxPage) {
+				this.handlePage(this.props.page + 1);
+			}
+			if (e.keyCode == 37 && this.props.page > 1) {
+				this.handlePage(this.props.page - 1);
+			}
+		}
+
+	}
+
 	render() {
 
 		const expandable = !!this.props.expandableComponent;
@@ -156,7 +185,7 @@ class Datagrid extends React.Component {
 		}
 
 		return (
-			<div className="datagrid">
+			<div className="datagrid" tabIndex="1" onKeyDown={(e) => this.handleKeyDown(e)}>
 				<div style={{position:'relative'}}>
 					<Loader visible={!!this.props.pending}/>
 					<Table
@@ -173,6 +202,7 @@ class Datagrid extends React.Component {
 						sort={this.props.sort}
 						filter={this.props.filter}
 						summary={this.props.summary}
+						masterdetail={this.props.masterdetail}
 						multiAction={!!multiAction}
 						handleSelect={this.handleSelect.bind(this)}
 						handleExpand={this.handleExpand.bind(this)}

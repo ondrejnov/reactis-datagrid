@@ -53,9 +53,17 @@ export default class Row extends React.Component {
 		return shouldUpdate;
 	}
 
-	handleToggleSelect(ev) {
+	handleRowClick(e) {
+		if (this.props.masterdetail) {
+			if (this.props.onSelect) {
+				this.props.onSelect(this.props.data, true);
+			}
+		}
+	}
+
+	handleToggleSelect(e) {
 		if (this.props.onSelect) {
-			this.props.onSelect(this.props.data, ev.target.checked);
+			this.props.onSelect(this.props.data, e.target.checked);
 		}
 	}
 
@@ -98,7 +106,7 @@ export default class Row extends React.Component {
 						</td>;
 		}
 		return (
-			<tr className={cn}>{checkCell}{expandable}{cells}</tr>
+			<tr onClick={(e) => this.handleRowClick(e)} className={cn}>{checkCell}{expandable}{cells}</tr>
 		)
 	}
 }

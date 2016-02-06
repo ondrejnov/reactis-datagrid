@@ -18,6 +18,7 @@ export default class Table extends React.Component {
 		expandableComponent: React.PropTypes.func,
 		emptyText: React.PropTypes.string,
 		multiAction: React.PropTypes.bool.isRequired,
+		masterdetail: React.PropTypes.bool.isRequired,
 		className: React.PropTypes.string,
 		sort: React.PropTypes.object,
 		filter: React.PropTypes.object,
@@ -60,6 +61,7 @@ export default class Table extends React.Component {
 					rows={this.props.rows}
 					primaryKey={this.props.primaryKey}
 					selected={this.props.selected}
+					masterdetail={this.props.masterdetail}
 					expanded={this.props.expanded}
 					expandable={this.props.expandable}
 					getRowClassName={this.props.getRowClassName}
