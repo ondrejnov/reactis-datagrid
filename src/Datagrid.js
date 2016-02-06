@@ -167,6 +167,7 @@ class Datagrid extends React.Component {
 						expanded={this.props.expanded}
 						expandable={expandable}
 						getRowClassName={this.props.getRowClassName}
+						className={this.props.className}
 						expandableComponent={this.props.expandableComponent}
 						emptyText={this.props.emptyText}
 						sort={this.props.sort}

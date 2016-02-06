@@ -18,6 +18,7 @@ export default class Table extends React.Component {
 		expandableComponent: React.PropTypes.func,
 		emptyText: React.PropTypes.string,
 		multiAction: React.PropTypes.bool.isRequired,
+		className: React.PropTypes.string,
 		sort: React.PropTypes.object,
 		filter: React.PropTypes.object,
 		summary: React.PropTypes.object
