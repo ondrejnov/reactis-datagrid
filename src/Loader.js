@@ -20,7 +20,7 @@ export default class Loader extends Component {
 		if (nextProps.visible && !this.props.visible) {
 			this.timeout = setTimeout(() => {
 				this.setState({visible: true});
-			}, 300);
+			}, 400);
 		}
 		else {
 			if (nextProps.visible == false) {
@@ -39,9 +39,9 @@ export default class Loader extends Component {
 
 		return (
 			<span>
-				<div style={{background:'#E5E5E5', opacity:0.35, position:'absolute', top: 70, width: '100%', bottom: 0}}>
+				<div style={{background:'#E5E5E5', zIndex:99, opacity:0.25, position:'absolute', top: 60, width: '100%', bottom: 0}}>
 				</div>
-				<div style={{position:'absolute', top: '50%', left: '50%', width: 32, bottom: 0}}>
+				<div style={{position:'absolute', zIndex:101, top: '50%', left: '50%', width: 32, height:32, bottom: 0}}>
 					<img src="/img/ajax-loader.gif" />
 				</div>
 			</span>

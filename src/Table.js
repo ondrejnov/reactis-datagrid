@@ -56,6 +56,7 @@ export default class Table extends React.Component {
 					multiAction={this.props.multiAction}
 				/>}
 				</thead>
+				{(this.props.rows.count() > 0 || !this.props.loading) &&
 				<Rows
 					columnModel={this.props.columnModel}
 					rows={this.props.rows}
@@ -70,7 +71,14 @@ export default class Table extends React.Component {
 					multiAction={this.props.multiAction}
 					handleSelect={this.props.handleSelect}
 					handleExpand={this.props.handleExpand}
-				/>
+				/>}
+				{this.props.rows.count() == 0 && this.props.loading &&
+					<tbody>
+					<tr>
+						<td colSpan="99" style={{color: '#444'}}>&nbsp;{this.props.loadingText}</td>
+					</tr>
+					</tbody>
+				}
 				{this.props.rows.count() > 0 &&
 				<Summary columnModel={this.props.columnModel}
 						 data={this.props.summary}
