@@ -32,7 +32,8 @@ export default class ReduxDatagrid extends React.Component {
 		compact: React.PropTypes.bool,
 		expandableComponent: React.PropTypes.func,
 		fixedFilter: React.PropTypes.object,
-		className: React.PropTypes.string
+		className: React.PropTypes.string,
+		disableSummary: React.PropTypes.bool
 	};
 
 	static defaultProps = {
@@ -151,13 +152,14 @@ export default class ReduxDatagrid extends React.Component {
 				sort={this.props.state.get('sort')}
 				filter={this.filter}
 				summary={this.props.state.get('summary')}
+				disableSummary={this.props.disableSummary}
 				selected={this.props.state.get('selected')}
 				totalCount={this.props.state.get('count')}
 				pending={!!this.props.state.get('pending')}
 				getRowClassName={this.props.getRowClassName}
+				compact={this.props.compact}
 				limit={this.props.limit}
 				className={this.props.className}
-				compact={this.props.compact}
 				masterdetail={this.props.masterdetail}
 				expanded={this.props.state.get('expanded')}
 				expandableComponent={this.props.expandableComponent}

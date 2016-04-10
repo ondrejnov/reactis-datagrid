@@ -21,6 +21,10 @@ export default class Paginator extends React.Component {
 		 */
 		steps: React.PropTypes.number,
 		/**
+		 * Compact mod
+		 */
+		compact: React.PropTypes.bool,
+		/**
 		 * Page select event
 		 */
 		onPage: React.PropTypes.func
@@ -68,7 +72,7 @@ export default class Paginator extends React.Component {
 		return (
 				<ul style={{float:'right'}} className="pagination pagination-separated">
 						{prev} {items} {next}
-					{items.length > 0 &&
+					{items.length > 0 && !this.props.compact &&
 						<li className="info hidden-xs"><span style={{border: 0, color: '#555', marginLeft:20}}>
 							<i className="fa fa-location-arrow position-left"></i>{info}</span>
 						</li>

@@ -22,7 +22,8 @@ export default class Table extends React.Component {
 		className: React.PropTypes.string,
 		sort: React.PropTypes.object,
 		filter: React.PropTypes.object,
-		summary: React.PropTypes.object
+		summary: React.PropTypes.object,
+		disableSummary: React.PropTypes.bool
 	};
 
 	render() {
@@ -79,7 +80,7 @@ export default class Table extends React.Component {
 					</tr>
 					</tbody>
 				}
-				{this.props.rows.count() > 0 &&
+				{this.props.rows.count() > 0 && !this.props.disableSummary &&
 				<Summary columnModel={this.props.columnModel}
 						 data={this.props.summary}
 						 expandable={expandable}

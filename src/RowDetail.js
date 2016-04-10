@@ -64,7 +64,7 @@ export default class RowDetail extends React.Component {
 			checkCell = <td className="ch"></td>;
 		}
 		return (
-			<tr className={cn}><td>&nbsp;</td><td colSpan={this.props.columnModel.length+1}>{component}</td></tr>
+			<tr className={cn}><td>&nbsp;</td><td colSpan={this.props.columnModel.length}>{component}</td></tr>
 		)
 	}
 }

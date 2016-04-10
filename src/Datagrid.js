@@ -20,6 +20,8 @@ class Datagrid extends React.Component {
 		totalCount: React.PropTypes.number,
 		// Summery row
 		summary: React.PropTypes.instanceOf(immutable.Map),
+		// disabled summary row
+		disableSummary: React.PropTypes.bool,
 		// Actual sort
 		sort: React.PropTypes.object,
 		// Filter
@@ -67,6 +69,7 @@ class Datagrid extends React.Component {
 		limit: 25,
 		compact: false,
 		pending: false,
+		disableSummary: false,
 		masterdetail: false,
 		multiActions: [],
 		selected: immutable.List(),
@@ -179,7 +182,7 @@ class Datagrid extends React.Component {
 		let paginatorSurround = 2;
 
 		if (this.props.compact) {
-			paginatorLength = 3;
+			paginatorLength = 2;
 			paginatorSurround = 1;
 			multiAction = false;
 		}
@@ -204,6 +207,7 @@ class Datagrid extends React.Component {
 						sort={this.props.sort}
 						filter={this.props.filter}
 						summary={this.props.summary}
+						disableSummary={this.props.disableSummary}
 						masterdetail={this.props.masterdetail}
 						multiAction={!!multiAction}
 						handleSelect={this.handleSelect.bind(this)}
@@ -227,6 +231,7 @@ class Datagrid extends React.Component {
 					limit={this.props.limit}
 					page={this.props.page}
 					surround={paginatorSurround}
+					compact={this.props.compact}
 					onPage={(page) => this.handlePage(page)}
 				/>
 				}

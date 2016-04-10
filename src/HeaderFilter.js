@@ -60,7 +60,7 @@ export default class HeaderFilter extends Component {
 
 	render () {
 		let i = 0;
-		const cells = this.props.columnModel.map(column => {
+		const cells = this.props.columnModel.filter(column => column.visible !== false).map(column => {
 			let input = this.props.filter.getControl(column.name);
 			if (input && input.props.visible) {
 				if (!input.props.visible()) {

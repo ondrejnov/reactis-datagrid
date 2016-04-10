@@ -39,7 +39,7 @@ export default class Summary extends Component {
 			return <tfoot></tfoot>;
 		}
 
-		const cells = this.props.columnModel.map((column) => {
+		const cells = this.props.columnModel.filter(column => column.visible !== false).map((column) => {
 			let style = {};
 			if (column.style) {
 				style = column.style;

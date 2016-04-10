@@ -59,7 +59,7 @@ class Header extends Component {
 	}
 
 	render () {
-		const cells = this.props.columnModel.map(column => {
+		const cells = this.props.columnModel.filter(column => column.visible !== false).map(column => {
 			let sort;
 			if (this.props.sortBy && this.props.sortBy.column == column.name) {
 				sort = this.props.sortBy.direction;

@@ -68,7 +68,7 @@ export default class Row extends React.Component {
 	}
 
 	render() {
-		const cells = this.props.columnModel.map((column) => {
+		const cells = this.props.columnModel.filter(column => column.visible !== false).map((column) => {
 			let factory = column.factory;
 			if (!factory) {
 				factory = new React.createFactory(Cell);
