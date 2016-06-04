@@ -31,8 +31,11 @@ export default class ReduxDatagrid extends React.Component {
 		limit: React.PropTypes.number.isRequired,
 		compact: React.PropTypes.bool,
 		expandableComponent: React.PropTypes.func,
+		expandableComponentProps: React.PropTypes.object,
 		fixedFilter: React.PropTypes.object,
+		forceFilter: React.PropTypes.bool,
 		className: React.PropTypes.string,
+		preHead: React.PropTypes.element,
 		disableSummary: React.PropTypes.bool
 	};
 
@@ -159,10 +162,12 @@ export default class ReduxDatagrid extends React.Component {
 				getRowClassName={this.props.getRowClassName}
 				compact={this.props.compact}
 				limit={this.props.limit}
+				preHead={this.props.preHead}
 				className={this.props.className}
 				masterdetail={this.props.masterdetail}
 				expanded={this.props.state.get('expanded')}
 				expandableComponent={this.props.expandableComponent}
+				expandableComponentProps={this.props.expandableComponentProps}
 				onPage={(page) => this.props.actions.setPage(this.props.id, page)}
 				onSort={(sort) => this.props.actions.setSort(this.props.id, sort)}
 				onSelect={(ids) => this.handleSelect(ids)}

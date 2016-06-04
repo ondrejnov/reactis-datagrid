@@ -48,8 +48,11 @@ class Datagrid extends React.Component {
 		getRowClassName: React.PropTypes.func,
 		// Class of expandable component
 		expandableComponent: React.PropTypes.func,
+		expandableComponentProps: React.PropTypes.object,
 		// CSS table class
 		className: React.PropTypes.string,
+		// row before header
+		preHead: React.PropTypes.element,
 		// Page select event
 		onPage: React.PropTypes.func,
 		// Sort event
@@ -201,6 +204,7 @@ class Datagrid extends React.Component {
 						getRowClassName={this.props.getRowClassName}
 						className={this.props.className}
 						expandableComponent={this.props.expandableComponent}
+						expandableComponentProps={this.props.expandableComponentProps}
 						emptyText={this.props.emptyText}
 						loading={!!this.props.pending}
 						loadingText={this.props.loadingText}
@@ -210,6 +214,7 @@ class Datagrid extends React.Component {
 						disableSummary={this.props.disableSummary}
 						masterdetail={this.props.masterdetail}
 						multiAction={!!multiAction}
+						preHead={this.props.preHead}
 						handleSelect={this.handleSelect.bind(this)}
 						handleExpand={this.handleExpand.bind(this)}
 						handleSelectAll={this.handleSelectAll.bind(this)}

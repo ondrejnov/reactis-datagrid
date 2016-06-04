@@ -50,6 +50,7 @@ export default class Rows extends React.Component {
 						id={row.get(this.props.primaryKey)}
 						key={'detail_' + row.get(this.props.primaryKey)}
 						expandableComponent={this.props.expandableComponent}
+						expandableComponentProps={this.props.expandableComponentProps}
 						selected={isSelected}
 						multiAction={this.props.multiAction}
 					/>);
