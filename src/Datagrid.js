@@ -48,8 +48,14 @@ class Datagrid extends React.Component {
 		getRowClassName: React.PropTypes.func,
 		// Class of expandable component
 		expandableComponent: React.PropTypes.func,
+		expandableComponentProps: React.PropTypes.object,
+		// Class of altervative body component
+		bodyComponentClass: React.PropTypes.func,
+		bodyComponentProps: React.PropTypes.object,
 		// CSS table class
 		className: React.PropTypes.string,
+		// row before header
+		preHead: React.PropTypes.element,
 		// Page select event
 		onPage: React.PropTypes.func,
 		// Sort event
@@ -173,9 +179,56 @@ class Datagrid extends React.Component {
 
 	}
 
-	render() {
-
+	renderTable() {
 		const expandable = !!this.props.expandableComponent;
+		const multiAction = !this.props.compact && this.props.multiActions && this.props.multiActions.length > 0;
+
+		return (
+			<Table
+				columnModel={this.props.columnModel}
+				rows={this.props.rows}
+				primaryKey={this.props.primaryKey}
+				selected={this.props.selected}
+				expanded={this.props.expanded}
+				expandable={expandable}
+				getRowClassName={this.props.getRowClassName}
+				className={this.props.className}
+				expandableComponent={this.props.expandableComponent}
+				expandableComponentProps={this.props.expandableComponentProps}
+				emptyText={this.props.emptyText}
+				loading={!!this.props.pending}
+				loadingText={this.props.loadingText}
+				sort={this.props.sort}
+				filter={this.props.filter}
+				summary={this.props.summary}
+				disableSummary={this.props.disableSummary}
+				masterdetail={this.props.masterdetail}
+				multiAction={!!multiAction}
+				preHead={this.props.preHead}
+				handleSelect={this.handleSelect.bind(this)}
+				handleExpand={this.handleExpand.bind(this)}
+				handleSelectAll={this.handleSelectAll.bind(this)}
+				handleSort={this.handleSort.bind(this)}
+			/>);
+	}
+
+	renderBody() {
+		if (this.props.bodyComponentClass) {
+			const factory = React.createFactory(this.props.bodyComponentClass);
+			const body = new factory({
+					...this.props,
+					handleSelect: this.handleSelect.bind(this),
+					handleExpand: this.handleExpand.bind(this),
+					handleSelectAll: this.handleSelectAll.bind(this),
+					handleSort: this.handleSort.bind(this),
+					...this.props.bodyComponentProps
+			});
+			return body;
+		}
+		return this.renderTable();
+	}
+
+	render() {
 
 		let multiAction = this.props.multiActions && this.props.multiActions.length > 0;
 		let paginatorLength = 3;
@@ -191,30 +244,7 @@ class Datagrid extends React.Component {
 			<div className="datagrid" tabIndex="1" onKeyDown={(e) => this.handleKeyDown(e)}>
 				<div style={{position:'relative'}}>
 					<Loader visible={!!this.props.pending}/>
-					<Table
-						columnModel={this.props.columnModel}
-						rows={this.props.rows}
-						primaryKey={this.props.primaryKey}
-						selected={this.props.selected}
-						expanded={this.props.expanded}
-						expandable={expandable}
-						getRowClassName={this.props.getRowClassName}
-						className={this.props.className}
-						expandableComponent={this.props.expandableComponent}
-						emptyText={this.props.emptyText}
-						loading={!!this.props.pending}
-						loadingText={this.props.loadingText}
-						sort={this.props.sort}
-						filter={this.props.filter}
-						summary={this.props.summary}
-						disableSummary={this.props.disableSummary}
-						masterdetail={this.props.masterdetail}
-						multiAction={!!multiAction}
-						handleSelect={this.handleSelect.bind(this)}
-						handleExpand={this.handleExpand.bind(this)}
-						handleSelectAll={this.handleSelectAll.bind(this)}
-						handleSort={this.handleSort.bind(this)}
-					/>
+					{this.renderBody()}
 				</div>
 				{multiAction &&
 					<MultiActionButton
