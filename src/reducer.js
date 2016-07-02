@@ -1,6 +1,6 @@
 import immutable from 'immutable';
 import {INIT_DEFAULT, DESTROY,
-	LOAD, LOAD_SUCCESS,
+	LOAD, LOAD_SUCCESS, LOAD_FAIL,
 	SET_PAGE, SET_SORT, SET_FILTER, SET_FILTER_LIVE,
 	ADD_SELECTED_ROWS, REMOVE_SELECTED_ROWS, SELECTED_MOVE,
 	EXPAND_ROWS, COLLAPSE_ROWS,
@@ -31,6 +31,9 @@ export default function reducer(state = initialState, action = {}) {
 		  			.setIn([action.id, 'count'], action.result.count)
 			  		.setIn([action.id, 'items'], immutable.fromJS(action.result.items))
 			  		.setIn([action.id, 'summary'], immutable.fromJS(action.result.summary));
+
+	  case LOAD_FAIL:
+		  return state.setIn([action.id, 'pending'], false);
 
 	  case SAVE_INLINE:
 		  var inline = state.getIn([action.id, 'inline', action.field, action.primaryKey]);
