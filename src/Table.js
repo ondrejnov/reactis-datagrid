@@ -16,6 +16,7 @@ export default class Table extends React.Component {
 		expandable: React.PropTypes.bool.isRequired,
 		getRowClassName: React.PropTypes.func,
 		expandableComponent: React.PropTypes.func,
+		expandableComponentProps: React.PropTypes.object,
 		emptyText: React.PropTypes.string,
 		multiAction: React.PropTypes.bool.isRequired,
 		masterdetail: React.PropTypes.bool.isRequired,
@@ -23,6 +24,7 @@ export default class Table extends React.Component {
 		sort: React.PropTypes.object,
 		filter: React.PropTypes.object,
 		summary: React.PropTypes.object,
+		preHead: React.PropTypes.element,
 		disableSummary: React.PropTypes.bool
 	};
 
@@ -40,6 +42,7 @@ export default class Table extends React.Component {
 		return (
 			<table className={className}>
 				<thead>
+				{this.props.preHead}
 				<Header
 					columnModel={this.props.columnModel}
 					multiAction={this.props.multiAction}
@@ -68,6 +71,7 @@ export default class Table extends React.Component {
 					expandable={this.props.expandable}
 					getRowClassName={this.props.getRowClassName}
 					expandableComponent={this.props.expandableComponent}
+					expandableComponentProps={this.props.expandableComponentProps}
 					emptyText={this.props.emptyText}
 					multiAction={this.props.multiAction}
 					handleSelect={this.props.handleSelect}

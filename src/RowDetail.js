@@ -33,6 +33,10 @@ export default class RowDetail extends React.Component {
 		 * Class of expandable component
 		 */
 		expandableComponent: React.PropTypes.func.isRequired,
+		/**
+		 * Expandable component Props
+		 */
+		expandableComponentProps: React.PropTypes.object,
 		/*
 		 * Multiactions
 		 */
@@ -54,7 +58,7 @@ export default class RowDetail extends React.Component {
 		let component = false;
 		if (this.props.visible) {
 			const factory = new React.createFactory(this.props.expandableComponent);
-			component = new factory({data: this.props.data});
+			component = new factory({...this.props.expandableComponentProps, data: this.props.data});
 		}
 		else {
 			cn += ' hide';
