@@ -28,6 +28,20 @@ export default class Table extends React.Component {
 		disableSummary: React.PropTypes.bool
 	};
 
+	constructor(props) {
+		super(props);
+		this.handleSelectAll = this.handleSelectAll.bind(this);
+		this.handleSort = this.handleSort.bind(this);
+	}
+
+	handleSelectAll(checked) {
+		this.props.handleSelectAll(checked)
+	}
+
+	handleSort(sort) {
+		this.props.handleSort(sort)
+	}
+
 	render() {
 		const expandable = !!this.props.expandableComponent;
 
@@ -47,16 +61,16 @@ export default class Table extends React.Component {
 					columnModel={this.props.columnModel}
 					multiAction={this.props.multiAction}
 					expandable={expandable}
-					sortBy={this.props.sort ? this.props.sort.toJS() : null}
-					onSort={(sort) => this.props.handleSort(sort)}
-					onSelectAll={(checked) => this.props.handleSelectAll(checked)}
+					sortBy={this.props.sort}
+					onSort={this.handleSort}
+					onSelectAll={this.handleSelectAll}
 				/>
 				{this.props.filter && <HeaderFilter
 					filter={this.props.filter}
 					expandable={expandable}
 					values={this.props.filter.getValues()}
 					columnModel={this.props.columnModel}
-					onSelectAll={(checked) => this.props.handleSelectAll(checked)}
+					onSelectAll={this.handleSelectAll}
 					multiAction={this.props.multiAction}
 				/>}
 				</thead>

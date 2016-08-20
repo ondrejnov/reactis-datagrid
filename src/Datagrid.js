@@ -52,6 +52,8 @@ class Datagrid extends React.Component {
 		// Class of altervative body component
 		bodyComponentClass: React.PropTypes.func,
 		bodyComponentProps: React.PropTypes.object,
+		// loader image
+		loaderImage: React.PropTypes.string,
 		// CSS table class
 		className: React.PropTypes.string,
 		// row before header
@@ -86,6 +88,7 @@ class Datagrid extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.handlePage = this.handlePage.bind(this);
 	}
 
 	handleSort(nextSort) {
@@ -243,7 +246,7 @@ class Datagrid extends React.Component {
 		return (
 			<div className="datagrid" tabIndex="1" onKeyDown={(e) => this.handleKeyDown(e)}>
 				<div style={{position:'relative'}}>
-					<Loader visible={!!this.props.pending}/>
+					<Loader visible={!!this.props.pending} img={this.props.loaderImage}/>
 					{this.renderBody()}
 				</div>
 				{multiAction &&
@@ -262,7 +265,7 @@ class Datagrid extends React.Component {
 					page={this.props.page}
 					surround={paginatorSurround}
 					compact={this.props.compact}
-					onPage={(page) => this.handlePage(page)}
+					onPage={this.handlePage}
 				/>
 				}
 				<div style={{clear:'both'}}></div>

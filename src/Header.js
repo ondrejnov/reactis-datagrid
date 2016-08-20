@@ -34,8 +34,8 @@ class Header extends Component {
 	handleSort(column) {
 		let sort;
 		// change
-		if (this.props.sortBy && this.props.sortBy.column == column.name) {
-			sort = this.props.sortBy;
+		if (this.props.sortBy && this.props.sortBy.get('column') == column.name) {
+			sort = this.props.sortBy.toJS();
 			if (sort.direction == 'desc') {
 				sort.direction = 'asc';
 			}
@@ -61,8 +61,8 @@ class Header extends Component {
 	render () {
 		const cells = this.props.columnModel.filter(column => column.visible !== false).map(column => {
 			let sort;
-			if (this.props.sortBy && this.props.sortBy.column == column.name) {
-				sort = this.props.sortBy.direction;
+			if (this.props.sortBy && this.props.sortBy.get('column') == column.name) {
+				sort = this.props.sortBy.toJS().direction;
 			}
 			return <HeaderCell
 						key={column.name}

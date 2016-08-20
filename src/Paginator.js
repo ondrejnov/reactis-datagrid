@@ -1,7 +1,8 @@
 import React from 'react';
+import Component from './Component';
 import paginatorMath from './paginatorMath';
 
-export default class Paginator extends React.Component {
+export default class Paginator extends Component {
 
 	static propTypes = {
 		/**

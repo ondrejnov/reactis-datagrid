@@ -37,6 +37,7 @@ export default class ReduxDatagrid extends React.Component {
 		fixedFilter: React.PropTypes.object,
 		forceFilter: React.PropTypes.bool,
 		className: React.PropTypes.string,
+		loaderImage: React.PropTypes.string,
 		preHead: React.PropTypes.element,
 		disableSummary: React.PropTypes.bool
 	};
@@ -162,6 +163,7 @@ export default class ReduxDatagrid extends React.Component {
 				totalCount={this.props.state.get('count')}
 				pending={!!this.props.state.get('pending')}
 				getRowClassName={this.props.getRowClassName}
+				loaderImage={this.props.loaderImage}
 				compact={this.props.compact}
 				limit={this.props.limit}
 				preHead={this.props.preHead}
