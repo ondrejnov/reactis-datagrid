@@ -89,6 +89,7 @@ class Datagrid extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handlePage = this.handlePage.bind(this);
+		this.handleActionSelect = this.handleActionSelect.bind(this);
 	}
 
 	handleSort(nextSort) {
@@ -254,7 +255,7 @@ class Datagrid extends React.Component {
 						actions={this.props.multiActions}
 						selected={this.props.selected}
 						totalCount={this.props.totalCount}
-						onActionSelect={(multiActionItem) => this.handleActionSelect(multiActionItem) }
+						onActionSelect={this.handleActionSelect}
 					/>
 				}
 				{!!this.props.page &&
