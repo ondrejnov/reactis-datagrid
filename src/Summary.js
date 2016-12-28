@@ -40,6 +40,7 @@ export default class Summary extends Component {
 		}
 
 		const cells = this.props.columnModel.filter(column => column.visible !== false).map((column) => {
+
 			let style = {};
 			if (column.style) {
 				style = column.style;
@@ -54,6 +55,9 @@ export default class Summary extends Component {
 			let value;
 			if (this.props.data.get(column.name) != null) {
 				value = this.props.data.get(column.name);
+			}
+			if (column.summary && column.summary instanceof Function) {
+				value = column.summary(value && value.toJS ? value.toJS() : value, this.props.data.toJS(), column);
 			}
 			return (
 				<td key={column.name} style={style} className={className}>
