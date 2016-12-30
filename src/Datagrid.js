@@ -154,8 +154,10 @@ class Datagrid extends React.Component {
 			queryObject: {
 				sort: this.props.sort,
 				filter: this.props.filter.getValues().toJS()
-			}
+			},
+			count: this.props.selected.count() ? this.props.selected.count() : this.props.totalCount
 		};
+
 		if (multiAction.onClick) {
 			multiAction.onClick(selected);
 		}
