@@ -99,9 +99,6 @@ class Datagrid extends React.Component {
 	}
 
 	handleSelect(row, checked) {
-		if (this.props.masterdetail) {
-			this.handleSelectAll(false);
-		}
 
 		const id = row.get(this.props.primaryKey);
 		if (checked) {

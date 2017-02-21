@@ -81,9 +81,10 @@ export function load(id, api, dgState, limit, saveState = false) {
 	};
 }
 
-export function addSelectedRows(id, ids) {
+export function addSelectedRows(id, ids, append = true) {
 	return {
 		type: ADD_SELECTED_ROWS,
+		append,
 		id,
 		ids
 	};

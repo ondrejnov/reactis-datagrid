@@ -80,14 +80,16 @@ export default function reducer(state = initialState, action = {}) {
 
 	  case ADD_SELECTED_ROWS:
 		  var selected = state.getIn([action.id, 'selected']);
-		  if (!selected) {
-			  selected = immutable.List();
+		  if (!selected || !action.append) {
+			  selected = immutable.List(action.ids);
 		  }
-		  action.ids.forEach((id) => {
-			  if (selected.indexOf(id) == -1) {
-				  selected = selected.push(id);
-			  }
-		  });
+		  else {
+			  action.ids.forEach((id) => {
+				  if (selected.indexOf(id) == -1) {
+					  selected = selected.push(id);
+				  }
+			  });
+		  }
 		  return state.setIn([action.id, 'selected'], selected);
 
 	  case SELECTED_MOVE:

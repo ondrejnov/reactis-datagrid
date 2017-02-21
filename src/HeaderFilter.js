@@ -1,6 +1,7 @@
 import Component from './Component';
 import React from 'react';
 import HeaderCell from './HeaderCell';
+import Checkbox from './Checkbox';
 
 export default class HeaderFilter extends Component {
 
@@ -53,8 +54,7 @@ export default class HeaderFilter extends Component {
 		this.props.onSort(sort);
 	}
 
-	handleToggleSelectAll(e) {
-		const checked = e.target.checked;
+	handleToggleSelectAll(checked) {
 		this.props.onSelectAll(checked);
 	}
 
@@ -90,7 +90,7 @@ export default class HeaderFilter extends Component {
 			<tr className={className}>
 				{this.props.multiAction &&
 					<td style={{width: '24px', textAlign:'center'}}>
-						<input type="checkbox" checked={this.props.selectedAll} onChange={(e) => this.handleToggleSelectAll(e)} />
+						<Checkbox onChange={(val) => this.handleToggleSelectAll(val)} />
 					</td>
 				}{expandable}{cells}
 			</tr>

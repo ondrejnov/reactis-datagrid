@@ -39,7 +39,8 @@ export default class ReduxDatagrid extends React.Component {
 		className: React.PropTypes.string,
 		loaderImage: React.PropTypes.string,
 		preHead: React.PropTypes.element,
-		disableSummary: React.PropTypes.bool
+		disableSummary: React.PropTypes.bool,
+		onSelect: React.PropTypes.func,
 	};
 
 	static defaultProps = {
@@ -53,6 +54,16 @@ export default class ReduxDatagrid extends React.Component {
 		if (this.props.filter) {
 			this.filter.on('change', this.handleFilterChange, this);
 		}
+	}
+
+	static childContextTypes = {
+		datagrid: React.PropTypes.object
+	};
+
+	getChildContext() {
+		return {
+			datagrid: this
+		};
 	}
 
 	componentDidMount() {
@@ -121,6 +132,17 @@ export default class ReduxDatagrid extends React.Component {
 		this.load();
 	}
 
+	getQueryObject() {
+		const s = this.props.state.toJS();
+		s.filter = {...s.filter, ...this.props.fixedFilter};
+		return {
+			page: s.page,
+			sort: s.sort,
+			limit: this.props.limit,
+			filter: s.filter
+		}
+	}
+
 	saveInline(apiMethod, field, args, cellValue) {
 		this.props.actions.saveInline(this.props.id, apiMethod, field, args, cellValue);
 	}
@@ -132,7 +154,7 @@ export default class ReduxDatagrid extends React.Component {
 	}
 
 	handleSelect(ids) {
-		this.props.actions.addSelectedRows(this.props.id, ids)
+		this.props.actions.addSelectedRows(this.props.id, ids, !this.props.masterdetail);
 		if (this.props.onSelect) {
 			this.props.onSelect(ids);
 		}

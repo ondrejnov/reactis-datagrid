@@ -1,6 +1,7 @@
 import Cell from './Cell';
 import React from 'react';
 import {Map} from 'immutable';
+import Checkbox from './Checkbox';
 
 export default class Row extends React.Component {
 
@@ -61,9 +62,9 @@ export default class Row extends React.Component {
 		}
 	}
 
-	handleToggleSelect(e) {
+	handleToggleSelect(val) {
 		if (this.props.onSelect) {
-			this.props.onSelect(this.props.data, e.target.checked);
+			this.props.onSelect(this.props.data, val);
 		}
 	}
 
@@ -88,7 +89,7 @@ export default class Row extends React.Component {
 		let checkCell = false;
 		if (this.props.multiAction) {
 			checkCell = <td className="ch">
-				<input type="checkbox" checked={this.props.selected} onChange={(e) => this.handleToggleSelect(e)} />
+				<Checkbox value={this.props.selected} onChange={(val) => this.handleToggleSelect(val)} />
 			</td>;
 		}
 		let expandable = false;
