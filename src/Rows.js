@@ -12,6 +12,8 @@ export default class Rows extends React.Component {
 		const shouldUpdate = this.props.rows != nextProps.rows ||
 			this.props.multiAction != nextProps.multiAction ||
 			this.props.selected != nextProps.selected ||
+			this.props.mouseDown != nextProps.mouseDown ||
+			this.props.shouldUpdateKey != nextProps.shouldUpdateKey ||
 			this.props.expanded != nextProps.expanded;
 
 		return shouldUpdate;
@@ -19,6 +21,7 @@ export default class Rows extends React.Component {
 
 
 	render() {
+
 		const expandable = !!this.props.expandableComponent;
 		let rows = [];
 		if (this.props.rows) {
@@ -31,6 +34,7 @@ export default class Rows extends React.Component {
 					columnModel={this.props.columnModel}
 					className={cn}
 					data={row}
+					mouseDown={this.props.mouseDown}
 					id={row.get(this.props.primaryKey)}
 					key={row.get(this.props.primaryKey)}
 					selected={isSelected}

@@ -32,6 +32,9 @@ export default class Table extends React.Component {
 		super(props);
 		this.handleSelectAll = this.handleSelectAll.bind(this);
 		this.handleSort = this.handleSort.bind(this);
+		this.state = {
+			mouseDown: false
+		}
 	}
 
 	handleSelectAll(checked) {
@@ -42,7 +45,19 @@ export default class Table extends React.Component {
 		this.props.handleSort(sort)
 	}
 
+	componentDidMount() {
+		/*$(document).mouseup((ev) => {
+			this.setState({mouseDown: false});
+		});*/
+	}
+
+	handleMouseDown(e) {
+		this.setState({mouseDown: true});
+		//e.preventDefault();
+	}
+
 	render() {
+
 		const expandable = !!this.props.expandableComponent;
 
 		let className = 'table datatable-basic table-bordered table-hover dataTable no-footer';
@@ -54,7 +69,7 @@ export default class Table extends React.Component {
 		}
 
 		return (
-			<table className={className}>
+			<table className={className} onMouseDown={(e)=>this.handleMouseDown(e)}>
 				<thead>
 				{this.props.preHead}
 				<Header
@@ -78,6 +93,7 @@ export default class Table extends React.Component {
 				<Rows
 					columnModel={this.props.columnModel}
 					rows={this.props.rows}
+					mouseDown={this.state.mouseDown}
 					primaryKey={this.props.primaryKey}
 					selected={this.props.selected}
 					masterdetail={this.props.masterdetail}
@@ -88,6 +104,7 @@ export default class Table extends React.Component {
 					expandableComponentProps={this.props.expandableComponentProps}
 					emptyText={this.props.emptyText}
 					multiAction={this.props.multiAction}
+					shouldUpdateKey={this.props.shouldUpdateKey}
 					handleSelect={this.props.handleSelect}
 					handleExpand={this.props.handleExpand}
 				/>}

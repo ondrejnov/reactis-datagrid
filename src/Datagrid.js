@@ -212,6 +212,7 @@ class Datagrid extends React.Component {
 				handleExpand={this.handleExpand.bind(this)}
 				handleSelectAll={this.handleSelectAll.bind(this)}
 				handleSort={this.handleSort.bind(this)}
+				shouldUpdateKey={this.props.shouldUpdateKey}
 			/>);
 	}
 

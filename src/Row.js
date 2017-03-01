@@ -49,6 +49,7 @@ export default class Row extends React.Component {
 		const shouldUpdate = this.props.data != nextProps.data ||
 			this.props.multiAction != nextProps.multiAction ||
 			this.props.selected != nextProps.selected ||
+			this.props.className != nextProps.className ||
 			this.props.expanded != nextProps.expanded;
 
 		return shouldUpdate;
@@ -65,6 +66,13 @@ export default class Row extends React.Component {
 	handleToggleSelect(val) {
 		if (this.props.onSelect) {
 			this.props.onSelect(this.props.data, val);
+		}
+	}
+
+	handleMouseOver(e) {
+		if (this.props.multiAction && this.props.mouseDown && this.props.onSelect) {
+			//window.getSelection().removeAllRanges();
+			//this.props.onSelect(this.props.data, true);
 		}
 	}
 
@@ -107,7 +115,10 @@ export default class Row extends React.Component {
 						</td>;
 		}
 		return (
-			<tr onClick={(e) => this.handleRowClick(e)} className={cn}>{checkCell}{expandable}{cells}</tr>
+			<tr onClick={(e) => this.handleRowClick(e)}
+				onMouseOver={(e)=>this.handleMouseOver(e)}
+				onMouseOut={(e)=>this.handleMouseOver(e)}
+				className={cn}>{checkCell}{expandable}{cells}</tr>
 		)
 	}
 }

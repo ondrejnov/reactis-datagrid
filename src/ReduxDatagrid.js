@@ -101,7 +101,12 @@ export default class ReduxDatagrid extends React.Component {
 			this.props.state.get('sort') != nextProps.state.get('sort') ||
 			!shallowEqual(this.props.fixedFilter, nextProps.fixedFilter))
 		) {
-			this.load(nextProps.state, nextProps.fixedFilter);
+			if (!shallowEqual(this.props.fixedFilter, nextProps.fixedFilter) && nextProps.state.get('page') != 1) {
+				this.props.actions.setPage(this.props.id, 1);
+			}
+			else {
+				this.load(nextProps.state, nextProps.fixedFilter);
+			}
 		}
 	}
 
@@ -144,7 +149,11 @@ export default class ReduxDatagrid extends React.Component {
 	}
 
 	saveInline(apiMethod, field, args, cellValue) {
-		this.props.actions.saveInline(this.props.id, apiMethod, field, args, cellValue);
+		return this.props.actions.saveInline(this.props.id, apiMethod, field, args, cellValue);
+	}
+
+	setInline(field, args, cellValue) {
+		return this.props.actions.setInline(this.props.id, field, args, cellValue);
 	}
 
 	load(state = this.props.state, fixedFilter = this.props.fixedFilter) {
@@ -196,6 +205,7 @@ export default class ReduxDatagrid extends React.Component {
 				expandableComponentProps={this.props.expandableComponentProps}
 				bodyComponentClass={this.props.bodyComponentClass}
 				bodyComponentProps={this.props.bodyComponentProps}
+				shouldUpdateKey={this.props.shouldUpdateKey}
 				onPage={(page) => this.props.actions.setPage(this.props.id, page)}
 				onSort={(sort) => this.props.actions.setSort(this.props.id, sort)}
 				onSelect={(ids) => this.handleSelect(ids)}

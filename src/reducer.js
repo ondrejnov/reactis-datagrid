@@ -4,6 +4,7 @@ import {INIT_DEFAULT, DESTROY,
 	SET_PAGE, SET_SORT, SET_FILTER, SET_FILTER_LIVE,
 	ADD_SELECTED_ROWS, REMOVE_SELECTED_ROWS, SELECTED_MOVE,
 	EXPAND_ROWS, COLLAPSE_ROWS,
+	SET_INLINE,
 	SAVE_INLINE, SAVE_INLINE_SUCCESS, SAVE_INLINE_FAIL
 } from './actions';
 
@@ -35,6 +36,7 @@ export default function reducer(state = initialState, action = {}) {
 	  case LOAD_FAIL:
 		  return state.setIn([action.id, 'pending'], false);
 
+	  case SET_INLINE:
 	  case SAVE_INLINE:
 		  var inline = state.getIn([action.id, 'inline', action.field, action.primaryKey]);
 		  if (!inline) {
@@ -49,6 +51,7 @@ export default function reducer(state = initialState, action = {}) {
 		  inline = inline.set('pending', true).set('oldValue', oldValue);
 		  return state
 			  		.setIn([action.id, 'inline', action.field, action.primaryKey], inline);
+
 
 	  case SAVE_INLINE_SUCCESS:
 		  return state.deleteIn([action.id, 'inline', action.field, action.primaryKey]);

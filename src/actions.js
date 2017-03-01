@@ -21,6 +21,8 @@ export const SAVE_INLINE = 'datagrid/SAVE_INLINE';
 export const SAVE_INLINE_SUCCESS = 'datagrid/SAVE_INLINE_SUCCESS';
 export const SAVE_INLINE_FAIL = 'datagrid/SAVE_INLINE_FAIL';
 
+export const SET_INLINE = 'datagrid/SET_INLINE';
+
 export function initDefault(id, state) {
 	return {
 		type: INIT_DEFAULT,
@@ -130,5 +132,15 @@ export function saveInline(id, apiMethod, field, args, cellValue) {
 		primaryKey: args.id,
 		value: cellValue ? cellValue : args.value,
 		promise: (client) => client.call(apiMethod, args)
+	};
+}
+
+export function setInline(id, field, args, cellValue) {
+	return {
+		type: SET_INLINE,
+		id,
+		field: field,
+		primaryKey: args.id,
+		value: cellValue ? cellValue : args.value
 	};
 }
